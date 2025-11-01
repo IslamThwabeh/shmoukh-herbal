@@ -1,0 +1,17 @@
+# railway.toml
+[build]
+builder = "nixpacks"
+buildCommand = "pip install -r requirements.txt"
+
+[deploy]
+startCommand = "python manage.py migrate && gunicorn shmoukh_herbal.wsgi:application --bind 0.0.0.0:$PORT"
+
+[[services]]
+name = "shmoukh-web"
+[[services.ports]]
+http = 8000
+
+# Volume for persistent media storage
+[[services.volumes]]
+source = "shmoukh-media"
+target = "/data/media"
