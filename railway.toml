@@ -3,7 +3,7 @@ builder = "nixpacks"
 buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-startCommand = "chmod +x startup.sh && ./startup.sh"
+startCommand = "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn shmoukh_herbal.wsgi:application --bind 0.0.0.0:$PORT"
 
 [[services]]
 name = "shmoukh-web"
