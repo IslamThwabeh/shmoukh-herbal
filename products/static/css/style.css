@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+header {
+    background: #2c5f2d;
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    margin: 0;
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.price {
+    font-weight: bold;
+    color: #2c5f2d;
+    font-size: 1.2em;
+}
+
+.coming-soon {
+    text-align: center;
+    padding: 3rem;
+    background: #f0f8f0;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    color: #666;
+}
