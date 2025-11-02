@@ -7,6 +7,21 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-only-change-i
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['*']
 
+# CSRF and Session settings for production
+CSRF_TRUSTED_ORIGINS = [
+    'https://shmoukh-herbal-production.up.railway.app',
+    'https://*.up.railway.app',
+]
+
+# Cookie settings for production
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+# If you're behind a proxy (like Railway), you might need:
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
