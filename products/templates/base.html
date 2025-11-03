@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Shmoukh Herbal{% endblock %}</title>
+    
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
+    
+    <!-- Your existing CSS and other meta tags -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
 </head>
@@ -11,18 +20,19 @@
     <header>
         <h1>Shmoukh Herbal</h1>
         <nav>
-            <a href="/">Home</a> | 
+            <a href="/">Home</a> |
             <a href="/shmoukh-admin/">Admin</a>
         </nav>
     </header>
-    
+
     <main>
         {% block content %}
         {% endblock %}
     </main>
-    
+
     <footer>
         <p>&copy; 2024 Shmoukh Herbal. All rights reserved.</p>
     </footer>
 </body>
 </html>
+

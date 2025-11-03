@@ -1,4 +1,4 @@
-$ cat settings.py
+#settings.py
 import os
 from pathlib import Path
 
@@ -36,7 +36,7 @@ if os.environ.get('DATABASE_URL'):
     }
     # Log database info
     db_config = DATABASES['default']
-    print(f"🔗 Using PostgreSQL database: {db_config.get('NAME')} on {db_config.get('HOST')}:{db_config.get('PORT')}")					   
+    print(f"🔗 Using PostgreSQL database: {db_config.get('NAME')} on {db_config.get('HOST')}:{db_config.get('PORT')}")
 else:
     DATABASES = {
         'default': {
@@ -158,23 +158,44 @@ LOGGING = {
             'level': 'WARNING',
             'propagate': False,
         },
+        'django.request': {
+        'handlers': ['console', 'file', 'error_file'],
+        'level': 'WARNING',  # Change from ERROR to WARNING to see 404s
+        'propagate': False,
+        },
+        # Custom logger for static files
+        'django.staticfiles': {
+        'handlers': ['console', 'file'],
+        'level': 'INFO',
+        'propagate': False,
+        },
     }
 }
 
 # Add admin email configuration for error notifications
 ADMINS = [
-    ('Admin', os.environ.get('ADMIN_EMAIL', 'admin@example.com')),
+    ('Admin', os.environ.get('ADMIN_EMAIL', 'islam.thwabeh@gmail.com')),
 ]
 
-# Email configuration for error reporting (optional)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+# Email Configuration - Fully environment variable based
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'islam.thwabeh@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'Zainab@123')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'islam.thwabeh@gmail.com')
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'webmaster@localhost')
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL', DEFAULT_FROM_EMAIL)  # For error emails
 
+# Email logging configuration
+if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
+    print("✅ Email configuration loaded - SMTP backend enabled")
+    # Ensure we're using SMTP backend if credentials are provided
+    if EMAIL_BACKEND == 'django.core.mail.backends.console.EmailBackend':
+        EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+else:
+    print("ℹ️  Using console email backend - emails will print to logs")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -187,7 +208,4 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'shmoukh_herbal.middleware.AuthenticationLoggingMiddleware',  # Add this line
 ]
-
-Islam.Thwabeh@PN-IslamT MINGW64 ~/shmoukh-herbal (main)
-$
 
