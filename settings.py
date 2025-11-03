@@ -1,3 +1,4 @@
+$ cat settings.py
 import os
 from pathlib import Path
 
@@ -33,6 +34,9 @@ if os.environ.get('DATABASE_URL'):
             ssl_require=True
         )
     }
+    # Log database info
+    db_config = DATABASES['default']
+    print(f"🔗 Using PostgreSQL database: {db_config.get('NAME')} on {db_config.get('HOST')}:{db_config.get('PORT')}")					   
 else:
     DATABASES = {
         'default': {
@@ -183,3 +187,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'shmoukh_herbal.middleware.AuthenticationLoggingMiddleware',  # Add this line
 ]
+
+Islam.Thwabeh@PN-IslamT MINGW64 ~/shmoukh-herbal (main)
+$
+
